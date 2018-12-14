@@ -16,7 +16,8 @@ inThisBuild(
     addCompilerPlugin(scalafixSemanticdb),
     scalacOptions ++= List(
       "-Yrangepos"
-    )
+    ),
+    resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/"
   )
 )
 
@@ -24,11 +25,15 @@ skip in publish := true
 
 lazy val rules = project.settings(
   moduleName := "named-literal-arguments",
-  libraryDependencies += "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion
+  libraryDependencies ++= Seq(
+    "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion
+
+  )
 )
 
 lazy val input = project.settings(
-  skip in publish := true
+  skip in publish := true,
+  libraryDependencies += "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion
 )
 
 lazy val output = project.settings(
@@ -48,3 +53,6 @@ lazy val tests = project
   )
   .dependsOn(rules)
   .enablePlugins(ScalafixTestkitPlugin)
+
+// comment
+// comment
